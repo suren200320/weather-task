@@ -22,7 +22,7 @@ const isFahrenheit = ref(false);
 const props = defineProps({
   modelValue: {
     type: String,
-    required: true
+    required: true,
   },
 })
 
