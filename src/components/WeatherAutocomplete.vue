@@ -17,6 +17,16 @@
       @keydown.up="navigateSuggestions('up')"
       @keydown.enter="selectSuggestion(selectedIndex)"
     >
+    <img
+      src="@/assets/images/icons/close.png"
+      class="clear-icon"
+      width="22px"
+      :style="{
+        opacity: query ? '1' : '0'
+      }"
+      alt="clear-icon"
+      @click="deleteQuery"
+    >
     <div
       v-if="showSuggestions"
       class="autocomplete-suggestions"
@@ -59,14 +69,12 @@ const query = ref("");
 const suggestions = ref([]);
 const selectedIndex = ref(-1);
 
-// Computed property to control whether suggestions should be shown
 const showSuggestions = computed(() => suggestions.value.length > 0);
 
 const activeSuggestionId = computed(() => {
   return selectedIndex.value >= 0 ? `suggestion-${selectedIndex.value}` : "";
 });
 
-// Debounced function to fetch suggestions
 const fetchSuggestions = async () => {
   if (query.value.length <= 2) {
     suggestions.value = [];
@@ -83,17 +91,6 @@ const fetchSuggestions = async () => {
 };
 
 const debouncedFetchSuggestions = debounce(fetchSuggestions, 300);
-
-// Watch query changes
-watch(query, (newValue) => {
-  if (!suggestions.value) {
-    suggestions.value = [];
-  } else if (!newValue) {
-    suggestions.value = [];
-  } else {
-    debouncedFetchSuggestions();
-  }
-});
 
 const selectSuggestion = (index) => {
   if (index >= 0 && index < suggestions.value.length) {
@@ -137,6 +134,21 @@ const focusInput = () => {
   const input = document.querySelector(".autocomplete-input");
   input && input.focus();
 };
+
+const deleteQuery = () => {
+  query.value = "",
+  suggestions.value = null;
+}
+
+watch(query, (newValue) => {
+  if (!suggestions.value) {
+    suggestions.value = [];
+  } else if (!newValue) {
+    suggestions.value = [];
+  } else {
+    debouncedFetchSuggestions();
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -147,7 +159,7 @@ const focusInput = () => {
 
   .autocomplete-input {
     width: 100%;
-    padding: 12px 16px;
+    padding: 12px 45px 12px 16px;
     border: 2px solid transparent;
     background-color: rgba(255, 255, 255, 0.35);
     border-radius: 8px;
@@ -194,6 +206,14 @@ const focusInput = () => {
         background-color: #89c9fa;
       }
     }
+  }
+  .clear-icon {
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+    top: 11.5px;
+    right: 15px;
+    transition: all 300ms;
   }
 }
 .night-autocomplete {
