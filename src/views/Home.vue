@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    Weather
+    <WeatherWidget v-if="!weatherStore.loading" />
   </div>
 </template>
 
 <script setup>
-import axios from '@/axios';
-import { onMounted } from 'vue';
+import WeatherWidget from '@/components/WeatherWidget.vue';
 
+import { useWeather } from '@/store/useWeather';
 
-onMounted(async () => {
-  const resp = await axios.get("/weather", { params: { lat: "40.177200", lon: "44.503490" } });
-  console.log(resp);
-})
+const weatherStore = useWeather();
+
+weatherStore.fetchWeatherData();
+weatherStore.loadSearchHistory();
 </script>

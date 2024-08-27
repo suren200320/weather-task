@@ -1,21 +1,26 @@
 import axios from "axios";
 
-const axiosInstance = axios.create({
-  baseURL: process.env.VUE_APP_WEATHER_API_URL,
-  params: {
-    appid: process.env.VUE_APP_WEATHER_API_KEY
-  },
+const axiosDefaultParams = {
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
+};
+
+const axiosInstanceWeather = axios.create({
+  baseURL: `${process.env.VUE_APP_WEATHER_API_URL}/data/2.5`,
+  params: {
+    appid: process.env.VUE_APP_WEATHER_API_KEY,
+  },
+  ...axiosDefaultParams,
 });
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+const axiosInstanceGeo = axios.create({
+  baseURL: process.env.VUE_APP_GEO_URL,
+  params: {
+    apiKey: process.env.VUE_APP_GEO_KEY,
+  },
+  ...axiosDefaultParams,
+});
 
-export default axiosInstance;
+export default { weather: axiosInstanceWeather, geo: axiosInstanceGeo };

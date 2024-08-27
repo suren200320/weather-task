@@ -1,0 +1,22 @@
+@import "./normalize.scss";
+
+.home {
+  height: 100vh;
+  padding: 30px;
+
+  @media screen and (max-width: 576px) {
+    padding: 0;
+  }
+}
+
+.day-container {
+  background: linear-gradient(to bottom right, #b3d9ff, #a1c4fd, #89c9fa, #d4eaff);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.night-container {
+  background: linear-gradient(to bottom right, #0b1d37, #0d2746, #0f355e, #102e52);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
