@@ -135,6 +135,7 @@ const selectLocation = ({ lat, lon }) => {
 <style lang="scss" scoped>
 .weather-widget {
   max-height: 100%;
+  min-height: 100%;
   overflow-y: auto;
   padding: 25px 20px;
   border-radius: 20px;
@@ -142,7 +143,6 @@ const selectLocation = ({ lat, lon }) => {
   width: 100%;
   margin: 0 auto;
   transition: all 400ms;
-  min-height: 400px;
   display: flex;
   flex-direction: column;
   gap: 20px;

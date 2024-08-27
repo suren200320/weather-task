@@ -17,6 +17,14 @@
           <div>{{ item.name }}</div>
         </div>
       </template>
+
+      <template v-else>
+        <div class="empty-item">
+          <span>
+            No searches
+          </span>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -37,7 +45,7 @@ const weatherStore = useWeather();
     font-weight: 600;
   }
   &__list {
-    margin-top: 15px;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -48,6 +56,13 @@ const weatherStore = useWeather();
       gap: 4px;
       border-bottom: 1px solid #ffffff80;
       padding-bottom: 10px;
+    }
+    .empty-item {
+      color: rgba(255, 255, 255, 0.7);
+      min-height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }
