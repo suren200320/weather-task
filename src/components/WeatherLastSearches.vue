@@ -22,7 +22,9 @@
 </template>
 
 <script setup>
-import { useWeather, defineEmits } from "@/store/useWeather";
+import { defineEmits } from "vue"
+
+import { useWeather } from "@/store/useWeather";
 
 const emit = defineEmits([ "select:location" ]);
 
